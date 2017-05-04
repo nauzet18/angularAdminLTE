@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { AdminComponent } from './admin.component';
 import { Dashboard1Component } from './dashboard1/dashboard1.component';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,11 @@ import { Dashboard1Component } from './dashboard1/dashboard1.component';
             {
                 path:'dashboard1',
                 component: Dashboard1Component
-          }
+            },
+            {
+                path:'users',
+                component: UsersComponent
+            },
         ]
      }
     ])
