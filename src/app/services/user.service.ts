@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs/Observable';
 
 import { User } from '../models/user';
+
 
 @Injectable()
 export class UserService {
@@ -12,10 +16,11 @@ export class UserService {
   public lastGetAll: Array<any>;
   public lastGet: any;
 
-  urlApi:string = 'http://192.168.33.13/api/';
+  //public urlApi:string = 'http://localhost:8081/api';
+  public urlApi:string = 'http://localhost/verta';
+
 
   constructor(private http: Http) {
-      this.modelName = 'user';
 
       this.headers = new Headers();
       this.headers.append('Content-Type', 'application/json');
@@ -23,7 +28,8 @@ export class UserService {
   }
 
   private getActionUrl() {
-    return this.urlApi + '/user/';
+    return this.urlApi;
+//    return this.urlApi + '/user';
   }
 
   private getTokenLogin() {
@@ -33,38 +39,14 @@ export class UserService {
   }
   // REST functions
   public getAll(): Observable<any[]> {
-      return this.http.get(this.getActionUrl())
+      return this.http.get(this.getActionUrl() +'?'+ this.getTokenLogin() )
           .map((response: Response) => {
             let data = response.json();
             this.lastGetAll = data;
             return data;
           })
-          .catch(this.handleError);
-
-/*
-      return this.http.get(this.getActionUrl())
-          .map((response: Response) => {
-            // getting an array having the same name as the model
-            let data = response.json()[this.modelName];
-            // transforming the array from indexed to associative
-            let tab = data.records.map((elem) => {
-              let unit = {};
-              // using the columns order and number to rebuild the object
-              data.columns.forEach( (champ, index) => {
-                unit[champ] = elem[index];
-              });
-              return unit;
-            });
-            this.lastGetAll = tab;
-            let obj = {
-              data: tab,
-              date: Date.now()
-            };
-            localStorage.setItem( 'rest_all_' + this.modelName, JSON.stringify(obj) );
-            return tab;
-          })
-          .catch(this.handleError);
-*/
+          .catch(this.handleError)
+          ;
   }
 
   public get(id: number): Observable<any> {
@@ -74,7 +56,8 @@ export class UserService {
             this.lastGet = data;
             return data;
           })
-          .catch(this.handleError);
+          .catch(this.handleError)
+          ;
   }
 
 

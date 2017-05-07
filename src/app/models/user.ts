@@ -2,8 +2,8 @@ export class User {
     public id: number;
     public name: string;
     public email: string;
-    public created_at: DateTime;
-    public updated_at: DateTime;
+    public created_at: Date;
+    public updated_at: Date;
 
     public constructor( data: any = {}) {
         this.id = data.id || '';

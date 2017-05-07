@@ -9,6 +9,8 @@ import { FooterComponent } from './footer/footer.component';
 import { ControlSidebarComponent } from './control-sidebar/control-sidebar.component';
 import { Dashboard1Component } from './dashboard1/dashboard1.component';
 import { UsersComponent } from './users/users.component';
+//Services
+import { UserService } from '../services/user.service';
 
 @NgModule({
   imports: [
@@ -16,12 +18,15 @@ import { UsersComponent } from './users/users.component';
     AdminRoutingModule
   ],
   declarations: [
-    AdminComponent, 
-    MainSideComponent, 
-    MainHeaderComponent, 
-    FooterComponent, 
-    ControlSidebarComponent, 
+    AdminComponent,
+    MainSideComponent,
+    MainHeaderComponent,
+    FooterComponent,
+    ControlSidebarComponent,
     Dashboard1Component, UsersComponent
+  ],
+  providers: [
+    UserService
   ],
   exports: [AdminComponent]
 })
